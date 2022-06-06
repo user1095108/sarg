@@ -42,7 +42,7 @@ void process(auto* const arg, bool& optarg, auto&& f) noexcept
         }
         else
         {
-          f({a, b}, {c, YYCURSOR});
+          f({a, b}, {c, YYCURSOR}, {arg, YYCURSOR});
         }
       }
       else 
@@ -61,7 +61,7 @@ void process(auto* const arg, bool& optarg, auto&& f) noexcept
       optarg = {};
 
       force_match1:
-      f({}, {arg, YYCURSOR});
+      f({}, {arg, YYCURSOR}, {arg, YYCURSOR});
 
       return;
     }
