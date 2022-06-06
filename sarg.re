@@ -23,7 +23,7 @@ void process(auto* const arg, bool& optarg, auto&& f) noexcept
     nul   = '\000';
     eq    = [=];
     char  = (. | '\n') \ nul ;
-    bchar = char \ '=';
+    bchar = char \ eq;
 
     * { return; }
 
