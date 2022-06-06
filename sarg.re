@@ -6,7 +6,7 @@ namespace sarg
 namespace detail
 {
 
-void process_arg(auto* const arg, bool& optarg, auto&& f) noexcept
+void process(auto* const arg, bool& optarg, auto&& f) noexcept
 {
   auto YYCURSOR(arg);
 
@@ -76,7 +76,7 @@ void sarg(auto* argv[], auto f) noexcept
 
   for (auto a(&argv[1]); *a; ++a)
   {
-    detail::process_arg(*a, optarg, f);
+    detail::process(*a, optarg, f);
   }
 }
 
