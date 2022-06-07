@@ -6,7 +6,7 @@ namespace sarg
 namespace detail
 {
 
-void process(auto* const arg, bool& optarg, auto&& f) noexcept
+inline void process(auto* const arg, bool& optarg, auto&& f) noexcept
 {
   auto YYCURSOR(arg);
 
@@ -71,7 +71,7 @@ void process(auto* const arg, bool& optarg, auto&& f) noexcept
 
 }
 
-void sarg(auto* argv[], auto f) noexcept
+inline void sarg(auto* argv[], auto f) noexcept
 {
   bool optarg{true}; // option-argument?
 
