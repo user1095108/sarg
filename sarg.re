@@ -54,7 +54,7 @@ void process(auto* const arg, bool& optarg, auto&& f) noexcept
     }
 
     "-" @a bchar @b char*? {
-      c = YYCURSOR;
+      c = b;
       goto force_match0;
     }
 
