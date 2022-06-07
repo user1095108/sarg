@@ -53,7 +53,7 @@ inline void process(auto* const arg, bool& optarg, auto&& f) noexcept
       return;
     }
 
-    "-" @a bchar @b char*? {
+    "-" @a char @b char*? {
       c = b;
       goto force_match0;
     }
