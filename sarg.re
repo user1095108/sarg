@@ -57,13 +57,12 @@ void process(auto* const arg, bool& optarg, auto&& f) noexcept
       if (optarg)
       {
         f({a, b}, {b, YYCURSOR}, {arg, YYCURSOR});
+        return;
       }
       else 
       {
         goto force_match1;
       }
-
-      return;
     }
 
     char+ {
