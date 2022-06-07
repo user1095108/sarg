@@ -54,15 +54,8 @@ void process(auto* const arg, bool& optarg, auto&& f) noexcept
     }
 
     "-" @a bchar @b char*? {
-      if (optarg)
-      {
-        f({a, b}, {b, YYCURSOR}, {arg, YYCURSOR});
-        return;
-      }
-      else 
-      {
-        goto force_match1;
-      }
+      c = YYCURSOR;
+      goto force_match0;
     }
 
     char+ {
