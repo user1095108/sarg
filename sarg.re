@@ -42,7 +42,7 @@ inline void process(auto* const arg, bool& optarg, auto&& f) noexcept
         }
         else
         {
-          f({a, b}, {c, YYCURSOR}, {arg, YYCURSOR});
+          f({a, b}, {c, YYCURSOR});
         }
       }
       else 
@@ -62,7 +62,7 @@ inline void process(auto* const arg, bool& optarg, auto&& f) noexcept
       optarg = {};
 
       force_match1:
-      f({}, {arg, YYCURSOR}, {arg, YYCURSOR});
+      f({}, {arg, YYCURSOR});
 
       return;
     }

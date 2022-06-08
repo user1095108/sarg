@@ -7,8 +7,7 @@ int main(int, char* argv[]) noexcept
 {
   sarg::sarg(
     argv,
-    [](std::string_view const k, std::string_view const v,
-      std::string_view) noexcept
+    [](std::string_view const k, std::string_view const v) noexcept
     {
       if (("help" == k) || ("version" == k))
       {
