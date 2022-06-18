@@ -21,21 +21,20 @@ inline void arg(auto* const arg, bool& optarg, auto&& f) noexcept
     re2c:yyfill:enable = 0;
 
     nul   = '\000';
+    char  = (. | '\n') \ nul;
     eq    = [=];
-    char  = (. | '\n') \ nul ;
-    bchar = char \ eq;
 
     * { return; }
 
-    "--" @a bchar* @b eq? @c char* {
+    "--" @a (char \ eq)* @b eq? @c char* {
       force_match0:
       if (optarg)
       {
-        if (a == b)
+        if (a == b) // --
         {
           optarg = {};
 
-          if (a != c)
+          if (a != c) // --=blabla
           {
             goto force_match1;
           }
