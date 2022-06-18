@@ -27,7 +27,7 @@ inline void arg(auto* const arg, bool& optarg, auto&& f) noexcept
 
     * { return; }
 
-    "--" @a bchar* @b eq? @c char*? {
+    "--" @a bchar* @b eq? @c char* {
       force_match0:
       if (optarg)
       {
@@ -53,7 +53,7 @@ inline void arg(auto* const arg, bool& optarg, auto&& f) noexcept
       return;
     }
 
-    "-" @a char @b char*? {
+    "-" @a char @b char* {
       c = b;
       goto force_match0;
     }
