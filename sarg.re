@@ -6,7 +6,7 @@ namespace sarg
 namespace detail
 {
 
-inline void arg(auto* const arg, bool& optarg, auto&& f) noexcept
+inline void arg(auto* const arg, bool& oper, auto&& f) noexcept
 {
   auto YYCURSOR(arg);
 
@@ -20,33 +20,33 @@ inline void arg(auto* const arg, bool& optarg, auto&& f) noexcept
     re2c:tags = 1;
     re2c:yyfill:enable = 0;
 
-    nul   = '\000';
-    char  = (. | '\n') \ nul;
-    eq    = [=];
+    nul  = '\000';
+    char = (. | '\n') \ nul;
+    eq   = [=];
 
     * { return; }
 
     "--" @a (char \ eq)* @b eq? @c char* {
       force_match0:
-      if (optarg)
+      if (oper)
+      {
+        goto oper_match;
+      }
+      else 
       {
         if (a == b) // --
         {
-          optarg = {};
+          oper = {};
 
-          if (a != c) // --=blabla
+          if (a != YYCURSOR) // --=blabla
           {
-            goto force_match1;
+            goto oper_match;
           }
         }
         else
         {
           f({a, b}, {c, YYCURSOR});
         }
-      }
-      else 
-      {
-        goto force_match1;
       }
 
       return;
@@ -58,9 +58,9 @@ inline void arg(auto* const arg, bool& optarg, auto&& f) noexcept
     }
 
     char+ {
-      optarg = {};
+      oper = {};
 
-      force_match1:
+      oper_match:
       f({}, {arg, YYCURSOR});
 
       return;
@@ -72,11 +72,11 @@ inline void arg(auto* const arg, bool& optarg, auto&& f) noexcept
 
 inline void sarg(auto* argv[], auto f) noexcept
 {
-  bool optarg{true}; // option-argument?
+  bool oper{}; // operand?
 
   for (auto a(&argv[1]); *a; ++a)
   {
-    detail::arg(*a, optarg, f);
+    detail::arg(*a, oper, f);
   }
 }
 
