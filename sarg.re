@@ -1,3 +1,4 @@
+// https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap12.html
 #include <type_traits>
 
 namespace sarg
