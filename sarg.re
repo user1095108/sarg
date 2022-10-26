@@ -6,7 +6,7 @@ namespace sarg
 namespace detail
 {
 
-inline void arg(auto* const arg, bool& oper, auto&& f) noexcept
+inline void arg(char const* const arg, bool& oper, auto&& f)
 {
   auto YYCURSOR(arg);
 
@@ -16,7 +16,7 @@ inline void arg(auto* const arg, bool& oper, auto&& f) noexcept
 
   /*!stags:re2c format = 'iter_t @@;'; */
   /*!re2c
-    re2c:define:YYCTYPE = std::remove_reference_t<decltype(*arg)>;
+    re2c:define:YYCTYPE = std::remove_cvref_t<decltype(*arg)>;
     re2c:tags = 1;
     re2c:yyfill:enable = 0;
 
@@ -70,7 +70,7 @@ inline void arg(auto* const arg, bool& oper, auto&& f) noexcept
 
 }
 
-inline void sarg(auto* argv[], auto f) noexcept
+inline void sarg(char* argv[], auto f)
 {
   bool oper{}; // operand?
 
