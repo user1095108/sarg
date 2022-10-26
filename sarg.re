@@ -29,25 +29,18 @@ inline void arg(char const* const arg, bool& oper, auto&& f)
 
     "--" @a (char \ eq)* @b eq? @c char* {
       force_match0:
-      if (!oper)
+      if (a == b) // --
       {
-        goto oper_match;
-      }
-      else 
-      {
-        if (a == b) // --
-        {
-          oper = {};
+        oper = true;
 
-          if (a != YYCURSOR) // --=blabla
-          {
-            goto oper_match;
-          }
-        }
-        else
+        if (a != YYCURSOR) // ignore "--"
         {
-          f({a, b}, {c, YYCURSOR});
+          goto oper_match;
         }
+      }
+      else
+      {
+        f({a, b}, {c, YYCURSOR});
       }
 
       return;
@@ -59,7 +52,7 @@ inline void arg(char const* const arg, bool& oper, auto&& f)
     }
 
     char+ {
-      oper = {};
+      oper = true;
 
       oper_match:
       f({}, {arg, YYCURSOR});
@@ -74,11 +67,11 @@ inline void arg(char const* const arg, bool& oper, auto&& f)
 inline void sarg(char* argv[], auto f)
   noexcept(noexcept(f({}, {})))
 {
-  bool oper{true}; // operand?
+  bool oper{}; // operand?
 
   for (auto a(&argv[1]); *a; ++a)
   {
-    detail::arg(*a, oper, f);
+    oper ? f({}, *a) : detail::arg(*a, oper, f);
   }
 }
 
