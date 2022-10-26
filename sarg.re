@@ -28,7 +28,7 @@ inline void arg(char const* const arg, bool& oper, auto&& f)
 
     "--" @a (char \ eq)* @b eq? @c char* {
       force_match0:
-      if (oper)
+      if (!oper)
       {
         goto oper_match;
       }
@@ -72,7 +72,7 @@ inline void arg(char const* const arg, bool& oper, auto&& f)
 
 inline void sarg(char* argv[], auto f)
 {
-  bool oper{}; // operand?
+  bool oper{true}; // operand?
 
   for (auto a(&argv[1]); *a; ++a)
   {
