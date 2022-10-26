@@ -7,6 +7,7 @@ namespace detail
 {
 
 inline void arg(char const* const arg, bool& oper, auto&& f)
+  noexcept(noexcept(f({}, {})))
 {
   auto YYCURSOR(arg);
 
@@ -71,6 +72,7 @@ inline void arg(char const* const arg, bool& oper, auto&& f)
 }
 
 inline void sarg(char* argv[], auto f)
+  noexcept(noexcept(f({}, {})))
 {
   bool oper{true}; // operand?
 
