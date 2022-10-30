@@ -1,7 +1,7 @@
 # sarg
 `sarg` is a simple command-line parser. It can parse command-line arguments in the format:
 
-`sarg --key=value -kvalue [--] operand...`
+`sarg [--key=value] [-kvalue] [--] [operand...]`
 
 # build instructions
 
