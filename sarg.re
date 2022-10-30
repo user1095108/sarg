@@ -47,8 +47,7 @@ inline void arg(char const* const arg, bool& oper, auto&& f)
       return;
     }
 
-    "-" @a char @b char* {
-      c = b;
+    "-" @a char @b @c char* {
       goto force_match0;
     }
 
