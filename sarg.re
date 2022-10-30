@@ -21,9 +21,7 @@ inline void sarg(char* argv[], auto f)
 
       decltype(YYCURSOR) a, b, c;
 
-      using iter_t = decltype(a);
-
-      /*!stags:re2c format = 'iter_t @@;'; */
+      /*!stags:re2c format = 'decltype(a) @@;'; */
       /*!re2c
         re2c:define:YYCTYPE = std::remove_cvref_t<decltype(*a)>;
         re2c:tags = 1;
