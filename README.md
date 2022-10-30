@@ -3,6 +3,8 @@
 
 `sarg [--key=value] [-kvalue] [--] [operand...]`
 
+`sarg` could be easily expanded upon, but is sufficient as-is for many applications.
+
 # build instructions
 
     re2c sarg.re -o sarg.hpp
