@@ -52,9 +52,7 @@ inline void sarg(char* argv[], auto f)
           continue;
         }
 
-        "-" @a char @b @c char* {
-          goto force_match0;
-        }
+        "-" @a char @b @c char* { goto force_match0; }
 
         char+ {
           oper = true;
