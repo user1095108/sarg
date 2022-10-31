@@ -3,7 +3,7 @@
 #include "sarg.hpp"
 
 //////////////////////////////////////////////////////////////////////////////
-int main(int, char* argv[]) noexcept
+int main(int, char* argv[])
 {
   sarg::sarg(
     argv,
