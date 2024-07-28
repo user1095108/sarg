@@ -39,10 +39,7 @@ inline void sarg(char* argv[], auto f)
           {
             oper = true;
 
-            if (a != YYCURSOR) // ignore "--"
-            {
-              goto oper_match;
-            }
+            if (a != YYCURSOR) goto oper_match; // ignore "--"
           }
           else
           {
