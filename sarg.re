@@ -37,9 +37,7 @@ inline void sarg(char* argv[], auto f)
           force_match0:
           if (a == b) // --
           {
-            oper = true;
-
-            if (a != YYCURSOR) goto oper_match; // ignore "--"
+            if (a == YYCURSOR) oper = true; else goto oper_match;
           }
           else
           {
@@ -52,9 +50,9 @@ inline void sarg(char* argv[], auto f)
         "-" @a char @b @c char* { goto force_match0; }
 
         char+ {
+          oper_match:
           oper = true;
 
-          oper_match:
           f({}, {*ap, YYCURSOR});
 
           continue;
