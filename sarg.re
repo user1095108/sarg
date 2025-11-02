@@ -4,17 +4,15 @@
 namespace sarg
 {
 
-inline void sarg(char* argv[], auto f)
-  noexcept(noexcept(f({}, {})))
+void sarg(char* argv[], auto f)
+  noexcept(noexcept(f(std::string_view{}, std::string_view{})))
 {
   bool oper{}; // operand?
 
   for (auto ap(&argv[1]); *ap; ++ap)
   {
     if (oper)
-    {
       f({}, *ap);
-    }
     else
     {
       auto YYCURSOR(*ap);
@@ -36,13 +34,9 @@ inline void sarg(char* argv[], auto f)
         "--" @a (char \ eq)* @b eq? @c char* {
           force_match0:
           if (a == b) // --
-          {
-            if (a == YYCURSOR) oper = true; else goto oper_match;
-          }
+            if (a == YYCURSOR) oper = true; else goto oper_match; // --=
           else
-          {
             f({a, b}, {c, YYCURSOR});
-          }
 
           continue;
         }
