@@ -1,18 +1,23 @@
 // https://pubs.opengroup.org/onlinepubs/009695399/basedefs/xbd_chap12.html
+#include <string_view>
 #include <type_traits>
 
 namespace sarg
 {
 
-void sarg(char* argv[], auto f)
-  noexcept(noexcept(f(std::string_view{}, std::string_view{})))
+template <typename T>
+void sarg(T* argv[], auto f)
+  noexcept(noexcept(f(std::basic_string_view<T>{},
+    std::basic_string_view<T>{})))
 {
+  using SV = std::basic_string_view<T>;
+
   bool oper{}; // operand?
 
   for (auto ap(&argv[1]); *ap; ++ap)
   {
     if (oper)
-      f({}, *ap);
+      f(SV{}, SV{*ap});
     else
     {
       auto YYCURSOR(*ap);
@@ -22,6 +27,7 @@ void sarg(char* argv[], auto f)
       /*!stags:re2c format = 'decltype(a) @@;'; */
       /*!re2c
         re2c:define:YYCTYPE = std::remove_cvref_t<decltype(*a)>;
+        re2c:flags:encoding-policy = substitute;
         re2c:tags = 1;
         re2c:yyfill:enable = 0;
 
@@ -36,7 +42,7 @@ void sarg(char* argv[], auto f)
           if (a == b) // --
             if (a == YYCURSOR) oper = true; else goto oper_match; // --=
           else
-            f({a, b}, {c, YYCURSOR});
+            f(SV{a, b}, SV{c, YYCURSOR});
 
           continue;
         }
@@ -47,7 +53,7 @@ void sarg(char* argv[], auto f)
           oper_match:
           oper = true;
 
-          f({}, {*ap, YYCURSOR});
+          f(SV{}, SV{*ap, YYCURSOR});
 
           continue;
         }
